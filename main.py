@@ -58,26 +58,34 @@ def organizar_mochila():
 
     # Atualizar a lista de itens na mochila
     quantidades = []
+    importancias = []
     for i, material in enumerate(materiais):
         quantidade = quantidades_entries[i].get()
+        importancia = importancias_entries[i].get()
+        if quantidade and importancia:
+            quantidade = int(quantidade)
+            importancia = int(importancia)
+            quantidades.append(quantidade)
+            importancias.append(importancia)
+
+    # Ordenar os materiais em ordem crescente de importância
+    materiais_ordenados = [material for _, material in sorted(zip(importancias, materiais), key=lambda x: x[0])]
+
+    # Adicionar os materiais à mochila até que não caiba mais ou a lista acabe
+    capacidade_restante = capacidade_mochila
+    for material in materiais_ordenados:
+        quantidade = quantidades_entries[materiais.index(material)].get()
         if quantidade:
             quantidade = int(quantidade)
-            quantidades.append(quantidade)
-
-    # Ordenar os materiais em ordem decrescente de quantidade
-    materiais_ordenados = [material for _, material in sorted(zip(quantidades, materiais), key=lambda x: x[0], reverse=True)]
-
-    # Chamada da função do algoritmo da Mochila
-    valor_total, itens_selecionados_indices = mochila(capacidade_mochila, quantidades, len(quantidades))
-
-    # Exibição dos itens selecionados na mochila em ordem decrescente de quantidade
-    for indice in itens_selecionados_indices:
-        item_selecionado = materiais[indice]
-        quantidade = quantidades_entries[materiais.index(item_selecionado)].get()
-        mochila_itens.insert(tk.END, f"{item_selecionado['nome']} (Quantidade: {quantidade})")
+            if quantidade <= capacidade_restante:
+                mochila_itens.insert(tk.END, f"{material['nome']} (Quantidade: {quantidade})")
+                capacidade_restante -= quantidade
+            else:
+                break
 
     # Exibição do valor total na mochila
-    valor_total_label.config(text=f"Valor total na mochila: {valor_total}")
+    valor_total_label.config(text=f"Valor total na mochila: {capacidade_mochila - capacidade_restante}")
+
 
 
 # Função para organizar a mochila usando o algoritmo da Mochila
