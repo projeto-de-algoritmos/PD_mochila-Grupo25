@@ -57,47 +57,39 @@ def organizar_mochila():
     mochila_itens.delete(0, tk.END)
 
     # Atualizar a lista de itens na mochila
-    pesos = []
-    valores = []
-    quantidade_selecionada = []
+    quantidades = []
     for i, material in enumerate(materiais):
-        importancia = importancias_entries[i].get()
         quantidade = quantidades_entries[i].get()
-        if importancia and quantidade:
-            importancia = int(importancia)
+        if quantidade:
             quantidade = int(quantidade)
-            if importancia <= capacidade_mochila:  # Verificar se a importância é menor ou igual à capacidade da mochila
-                pesos.append(importancia)
-                valores.append(quantidade)
-                quantidade_selecionada.append(quantidade)
+            quantidades.append(quantidade)
 
-    # Ordenar os materiais em ordem decrescente de importância
-    materiais_ordenados = [material for _, material in sorted(zip(pesos, materiais), key=lambda x: x[0], reverse=True)]
+    # Ordenar os materiais em ordem decrescente de quantidade
+    materiais_ordenados = [material for _, material in sorted(zip(quantidades, materiais), key=lambda x: x[0], reverse=True)]
 
     # Chamada da função do algoritmo da Mochila
-    valor_total, itens_selecionados_indices = mochila(capacidade_mochila, pesos, valores, len(pesos))
+    valor_total, itens_selecionados_indices = mochila(capacidade_mochila, quantidades, len(quantidades))
 
-    # Exibição dos itens selecionados na mochila em ordem decrescente de importância
+    # Exibição dos itens selecionados na mochila em ordem decrescente de quantidade
     for indice in itens_selecionados_indices:
         item_selecionado = materiais[indice]
-        importancia = importancias_entries[materiais.index(item_selecionado)].get()
         quantidade = quantidades_entries[materiais.index(item_selecionado)].get()
-        mochila_itens.insert(tk.END, f"{item_selecionado['nome']} (Importância: {importancia}, Quantidade: {quantidade})")
+        mochila_itens.insert(tk.END, f"{item_selecionado['nome']} (Quantidade: {quantidade})")
 
     # Exibição do valor total na mochila
     valor_total_label.config(text=f"Valor total na mochila: {valor_total}")
 
 
 # Função para organizar a mochila usando o algoritmo da Mochila
-def mochila(capacidade, pesos, valores, n):
+def mochila(capacidade, quantidades, n):
     tabela = [[0 for _ in range(capacidade + 1)] for _ in range(n + 1)]
 
     for i in range(n + 1):
         for j in range(capacidade + 1):
             if i == 0 or j == 0:
                 tabela[i][j] = 0
-            elif pesos[i - 1] <= j:
-                tabela[i][j] = max(valores[i - 1] + tabela[i - 1][j - pesos[i - 1]], tabela[i - 1][j])
+            elif quantidades[i - 1] <= j:
+                tabela[i][j] = max(quantidades[i - 1] + tabela[i - 1][j - quantidades[i - 1]], tabela[i - 1][j])
             else:
                 tabela[i][j] = tabela[i - 1][j]
 
@@ -107,7 +99,7 @@ def mochila(capacidade, pesos, valores, n):
     while i > 0 and j > 0:
         if tabela[i][j] != tabela[i - 1][j]:
             itens_selecionados.append(i - 1)
-            j -= pesos[i - 1]
+            j -= quantidades[i - 1]
         i -= 1
 
     return tabela[n][capacidade], itens_selecionados
@@ -133,4 +125,3 @@ valor_total_label = tk.Label(resultados_frame, text="Valor total na mochila:")
 valor_total_label.grid(row=2, column=0, sticky="w")
 
 root.mainloop()
-
