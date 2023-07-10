@@ -1,5 +1,54 @@
 import tkinter as tk
 
+# Lista de materiais
+materiais = [
+    {"nome": "Livro"},
+    {"nome": "Caderno"},
+    {"nome": "Estojo"},
+    {"nome": "Lápis"},
+    {"nome": "Borracha"},
+    {"nome": "Régua"},
+]
+
+# Interface gráfica usando Tkinter
+root = tk.Tk()
+root.title("Organizador de Mochila Escolar")
+
+# Rótulo e entrada para a capacidade da mochila
+capacidade_label = tk.Label(root, text="Capacidade da mochila:")
+capacidade_label.grid(row=0, column=0)
+
+capacidade_entry = tk.Entry(root)
+capacidade_entry.grid(row=0, column=1)
+
+# Rótulo para a lista de materiais
+materiais_label = tk.Label(root, text="Lista de Materiais:")
+materiais_label.grid(row=1, column=0, columnspan=2)
+
+# Quadro para conter as entradas de importância e quantidade dos materiais
+materiais_frame = tk.Frame(root)
+materiais_frame.grid(row=2, column=0, columnspan=2)
+
+importancias_entries = []
+quantidades_entries = []
+
+for i, material in enumerate(materiais):
+    material_label = tk.Label(materiais_frame, text=material['nome'])
+    material_label.grid(row=i, column=0)
+
+    importancia_label = tk.Label(materiais_frame, text="Importância:")
+    importancia_label.grid(row=i, column=1)
+
+    importancia_entry = tk.Entry(materiais_frame)
+    importancia_entry.grid(row=i, column=2)
+    importancias_entries.append(importancia_entry)
+
+    quantidade_label = tk.Label(materiais_frame, text="Quantidade:")
+    quantidade_label.grid(row=i, column=3)
+
+    quantidade_entry = tk.Entry(materiais_frame)
+    quantidade_entry.grid(row=i, column=4)
+    quantidades_entries.append(quantidade_entry)
 
 def organizar_mochila():
     capacidade_mochila = int(capacidade_entry.get())
@@ -64,55 +113,6 @@ def mochila(capacidade, pesos, valores, n):
     return tabela[n][capacidade], itens_selecionados
 
 
-# Lista de materiais
-materiais = [
-    {"nome": "Livro"},
-    {"nome": "Caderno"},
-    {"nome": "Estojo"},
-    {"nome": "Lápis"},
-    {"nome": "Borracha"},
-    {"nome": "Régua"},
-]
-
-# Interface gráfica usando Tkinter
-root = tk.Tk()
-root.title("Organizador de Mochila Escolar")
-
-# Rótulo e entrada para a capacidade da mochila
-capacidade_label = tk.Label(root, text="Capacidade da mochila:")
-capacidade_label.grid(row=0, column=0)
-
-capacidade_entry = tk.Entry(root)
-capacidade_entry.grid(row=0, column=1)
-
-# Rótulo para a lista de materiais
-materiais_label = tk.Label(root, text="Lista de Materiais:")
-materiais_label.grid(row=1, column=0, columnspan=2)
-
-# Quadro para conter as entradas de importância e quantidade dos materiais
-materiais_frame = tk.Frame(root)
-materiais_frame.grid(row=2, column=0, columnspan=2)
-
-importancias_entries = []
-quantidades_entries = []
-for i, material in enumerate(materiais):
-    material_label = tk.Label(materiais_frame, text=material['nome'])
-    material_label.grid(row=i, column=0)
-
-    importancia_label = tk.Label(materiais_frame, text="Importância:")
-    importancia_label.grid(row=i, column=1)
-
-    importancia_entry = tk.Entry(materiais_frame)
-    importancia_entry.grid(row=i, column=2)
-    importancias_entries.append(importancia_entry)
-
-    quantidade_label = tk.Label(materiais_frame, text="Quantidade:")
-    quantidade_label.grid(row=i, column=3)
-
-    quantidade_entry = tk.Entry(materiais_frame)
-    quantidade_entry.grid(row=i, column=4)
-    quantidades_entries.append(quantidade_entry)
-
 # Botão para organizar a mochila
 organizar_button = tk.Button(root, text="Organizar", command=organizar_mochila)
 organizar_button.grid(row=3, column=0, columnspan=2)
@@ -133,3 +133,4 @@ valor_total_label = tk.Label(resultados_frame, text="Valor total na mochila:")
 valor_total_label.grid(row=2, column=0, sticky="w")
 
 root.mainloop()
+
