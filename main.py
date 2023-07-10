@@ -73,6 +73,7 @@ def organizar_mochila():
 
     # Adicionar os materiais à mochila até que não caiba mais ou a lista acabe
     capacidade_restante = capacidade_mochila
+    quantidade_reduzida = 0
     for material in materiais_ordenados:
         quantidade = quantidades_entries[materiais.index(material)].get()
         if quantidade:
@@ -81,11 +82,13 @@ def organizar_mochila():
                 mochila_itens.insert(tk.END, f"{material['nome']} (Quantidade: {quantidade})")
                 capacidade_restante -= quantidade
             else:
+                quantidade_reduzida = quantidade - capacidade_restante
+                mochila_itens.insert(tk.END, f"{material['nome']} (Quantidade: {capacidade_restante})")
+                capacidade_restante = 0
                 break
 
     # Exibição do valor total na mochila
     valor_total_label.config(text=f"Valor total na mochila: {capacidade_mochila - capacidade_restante}")
-
 
 
 # Função para organizar a mochila usando o algoritmo da Mochila
