@@ -11,9 +11,9 @@
 
 ## Sobre 
 
-Esse código é um exemplo de implementação do algoritmo Knapsack no no problema da mochila, onde o usuário vai escolher a quantidade de matériais que a mochila suporta, em seguida o usuário deve fonecer a prioridade dos matériais e a quantidade que ele quer levar na mochila.
+Esse código é um exemplo de implementação do algoritmo Knapsack no no problema da mochila, onde o usuário vai escolher o peso dos matériais e a quantidade deles, além do tanto de peso que a mochila é capaz de suportar.
 
-Ao final deve apertar em organizar e o programa vai mostrar os itens que a mochila vai suportar, dando dando prioridade aos itens com maior importância (A importância se da em ordem crescente, logo a importância 1 é a que terá maior prioridade).
+Ao final deve apertar em organizar e o programa vai mostrar os itens que a mochila vai suportar, dando prioridade ao maior número mais próximo da capacidade máxima.
 
 ### Vídeo de apresentação
 [Apresentação]()
