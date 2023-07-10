@@ -6,7 +6,7 @@
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| 19/0036435  |  Pedro Henrique Carvalho Campos |
+| 19/0036435  |  Pedro Henrique Carvalho Campos  |
 | 20/0019520  |  Hian Praxedes de Souza Oliveira |
 
 ## Sobre 

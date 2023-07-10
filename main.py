@@ -79,10 +79,10 @@ def organizar_mochila():
 
     # Exibição dos itens selecionados na mochila em ordem decrescente de importância
     for indice in itens_selecionados_indices:
-        material = materiais_ordenados[indice]
-        importancia = importancias_entries[indice].get()
-        quantidade = quantidades_entries[indice].get()
-        mochila_itens.insert(tk.END, f"{material['nome']} (Importância: {importancia}, Quantidade: {quantidade})")
+        item_selecionado = materiais[indice]
+        importancia = importancias_entries[materiais.index(item_selecionado)].get()
+        quantidade = quantidades_entries[materiais.index(item_selecionado)].get()
+        mochila_itens.insert(tk.END, f"{item_selecionado['nome']} (Importância: {importancia}, Quantidade: {quantidade})")
 
     # Exibição do valor total na mochila
     valor_total_label.config(text=f"Valor total na mochila: {valor_total}")
