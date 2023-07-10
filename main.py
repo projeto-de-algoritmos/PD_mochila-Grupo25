@@ -72,7 +72,7 @@ def organizar_mochila():
                 quantidade_selecionada.append(quantidade)
 
     # Ordenar os materiais em ordem decrescente de importância
-    materiais_ordenados = [material for _, material in sorted(zip(pesos, materiais), reverse=True)]
+    materiais_ordenados = [material for _, material in sorted(zip(pesos, materiais), key=lambda x: x[0], reverse=True)]
 
     # Chamada da função do algoritmo da Mochila
     valor_total, itens_selecionados_indices = mochila(capacidade_mochila, pesos, valores, len(pesos))
